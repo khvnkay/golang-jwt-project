@@ -18,7 +18,7 @@ type User struct {
 	Refresh_token *string            `json:"refresh_token"`
 	Create_at     time.Time          `json:"create_at"`
 	Update_at     time.Time          `json:"update_at"`
-	User_id       *string            `json:"user_id"`
+	User_id       string             `json:"user_id"`
 }
 
 func models() {
