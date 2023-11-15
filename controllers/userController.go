@@ -80,7 +80,7 @@ func SignUp() gin.HandlerFunc {
 		user.Update_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 		user.ID = primitive.NewObjectID()
 		user.User_id = user.ID.Hex()
-		token, refreshToken, _ := helper.GenerateAllTokens(*user.Email, *user.Firs_name, *user.Last_name, *user.User_type, user.User_id)
+		token, refreshToken, _ := helper.GenerateAllTokens(*user.Email, *user.First_name, *user.Last_name, *user.User_type, user.User_id)
 		user.Token = &token
 		user.Refresh_token = &refreshToken
 
@@ -128,7 +128,7 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "User not found"})
 			return
 		}
-		token, refreshToken, _ := helper.GenerateAllTokens(*foundUser.Email, *foundUser.Firs_name, *foundUser.Last_name, *foundUser.User_type, foundUser.User_id)
+		token, refreshToken, _ := helper.GenerateAllTokens(*foundUser.Email, *foundUser.First_name, *foundUser.Last_name, *foundUser.User_type, foundUser.User_id)
 		helper.UpdateAllTokens(token, refreshToken, foundUser.User_id)
 		err = userCollaction.FindOne(ctx, bson.M{"user_id": foundUser.Email}).Decode(&foundUser)
 		if err != nil {
